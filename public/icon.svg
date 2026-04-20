@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#131314"/>
+  <rect x="56" y="56" width="400" height="400" fill="#1c1b1c"/>
+  <!-- Grid of 3x3 tiles representing Wordle grid -->
+  <!-- Row 1: correct, correct, present -->
+  <rect x="80" y="80" width="108" height="108" fill="#6aaa64"/>
+  <rect x="200" y="80" width="108" height="108" fill="#6aaa64"/>
+  <rect x="320" y="80" width="108" height="108" fill="#c9b458"/>
+  <!-- Row 2: absent, correct, absent -->
+  <rect x="80" y="200" width="108" height="108" fill="#DC7EA4"/>
+  <rect x="200" y="200" width="108" height="108" fill="#6aaa64"/>
+  <rect x="320" y="200" width="108" height="108" fill="#DC7EA4"/>
+  <!-- Row 3: empty -->
+  <rect x="80" y="320" width="108" height="108" fill="#353436" stroke="#41493e" stroke-width="2"/>
+  <rect x="200" y="320" width="108" height="108" fill="#353436" stroke="#41493e" stroke-width="2"/>
+  <rect x="320" y="320" width="108" height="108" fill="#353436" stroke="#41493e" stroke-width="2"/>
+  <!-- Letters -->
+  <text x="134" y="160" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">R</text>
+  <text x="254" y="160" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">M</text>
+  <text x="374" y="160" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">D</text>
+  <text x="134" y="280" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">L</text>
+  <text x="254" y="280" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">E</text>
+  <text x="374" y="280" font-family="monospace" font-size="64" font-weight="700" fill="#fff" text-anchor="middle">?</text>
+</svg>

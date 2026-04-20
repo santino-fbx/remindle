@@ -4,10 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#131314" />
+    <meta name="description" content="Remindle — A Wordle-inspired memory training app. Memorize what matters." />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Remindle" />
+
+    <!-- Open Graph (for link previews in iMessage, WhatsApp, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Remindle" />
+    <meta property="og:description" content="A Wordle-inspired memory game. Can you remember what matters?" />
+    <meta property="og:image" content="/icon-512.png" />
+    <meta property="og:url" content="https://dist-seven-kappa-59.vercel.app" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Remindle" />
+    <meta name="twitter:description" content="A Wordle-inspired memory game. Can you remember what matters?" />
+    <meta name="twitter:image" content="/icon-512.png" />
+
     <title>Remindle</title>
     <style>
       html, body { background: #131314; }
     </style>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1910387268796156"
       crossorigin="anonymous"></script>
@@ -15,5 +42,13 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>
