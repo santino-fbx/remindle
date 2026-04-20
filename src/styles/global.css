@@ -1,0 +1,112 @@
+@import './tokens.css';
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--background);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* Prevent iOS zoom on input focus */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Minimum touch target size */
+button, [role="button"] {
+  min-height: 44px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ─── Typography Scale ─── */
+.display-lg  { font-size: 3.5rem;   font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase; }
+.display-md  { font-size: 2.75rem;  font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase; }
+.headline-lg { font-size: 2rem;     font-weight: 700; text-transform: uppercase; }
+.headline-md { font-size: 1.5rem;   font-weight: 700; text-transform: uppercase; }
+.headline-sm { font-size: 1.25rem;  font-weight: 700; text-transform: uppercase; }
+.title-lg    { font-size: 1.125rem; font-weight: 600; }
+.title-md    { font-size: 1rem;     font-weight: 600; }
+.title-sm    { font-size: 0.875rem; font-weight: 600; }
+.body-lg     { font-size: 1rem;     font-weight: 400; letter-spacing: 0.02em; line-height: 1.5; }
+.body-md     { font-size: 0.875rem; font-weight: 400; letter-spacing: 0.02em; line-height: 1.5; }
+.label-lg    { font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.label-md    { font-size: 0.75rem;  font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+.label-sm    { font-size: 0.6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--outline-variant); }
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+/* ─── Focus visible ─── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ─── Utility ─── */
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-muted { color: var(--on-surface-variant); }
+.text-center { text-align: center; }
+
+/* ─── Animations ─── */
+@keyframes flip {
+  0%   { transform: scaleY(1); }
+  50%  { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 20% { transform: translateY(0); }
+  40%     { transform: translateY(-16px); }
+  50%     { transform: translateY(4px); }
+  60%     { transform: translateY(-8px); }
+  80%     { transform: translateY(2px); }
+  100%    { transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
