@@ -132,8 +132,53 @@ export async function getDeckDayResults(deckId, date) {
     .map(d => ({ id: d.id, ...d.data() }))
     .filter(r => r.date === date)
     .sort((a, b) => {
-      // Winners first, then by fewer attempts
       if (a.won !== b.won) return b.won ? 1 : -1;
       return a.attempts - b.attempts;
     });
+}
+
+// ─── Challenges ───
+
+export async function createChallenge(phrase, hint, category, creatorUid, creatorName) {
+  const code = generateInviteCode();
+  const ref = await addDoc(collection(db, 'challenges'), {
+    phrase,
+    hint,
+    category: category || '',
+    code,
+    creatorUid,
+    creatorName: creatorName || 'Someone',
+    createdAt: serverTimestamp(),
+    plays: [],
+  });
+  return { challengeId: ref.id, code };
+}
+
+export async function getChallengeByCode(code) {
+  const q = query(collection(db, 'challenges'), where('code', '==', code.toUpperCase()));
+  const snap = await getDocs(q);
+  if (snap.empty) return null;
+  return { id: snap.docs[0].id, ...snap.docs[0].data() };
+}
+
+export async function submitChallengeResult(challengeId, playerName, won, attempts) {
+  const ref = doc(db, 'challenges', challengeId);
+  const challenge = await getDoc(ref);
+  if (!challenge.exists()) return;
+
+  const play = {
+    name: playerName || 'Anonymous',
+    won,
+    attempts,
+    playedAt: new Date().toISOString(),
+  };
+
+  const existing = challenge.data().plays || [];
+  await updateDoc(ref, { plays: [...existing, play] });
+}
+
+export async function getChallenge(challengeId) {
+  const snap = await getDoc(doc(db, 'challenges', challengeId));
+  if (!snap.exists()) return null;
+  return { id: snap.id, ...snap.data() };
 }

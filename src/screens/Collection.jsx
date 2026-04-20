@@ -1,15 +1,21 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { useAuth } from '../contexts/AuthContext';
 import { getPhrases, deletePhrase, getCategories } from '../utils/storage';
+import { createChallenge } from '../utils/firestore';
 
 export default function Collection() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [phrases, setPhrases] = useState(getPhrases);
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [revealedIds, setRevealedIds] = useState(new Set());
+  const [challengingId, setChallengingId] = useState(null);
+  const [challengeLink, setChallengeLink] = useState('');
 
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'Unknown';
   const categories = ['All', ...getCategories()];
 
   const filtered = useMemo(() => {
@@ -43,6 +49,25 @@ export default function Collection() {
       next.delete(id);
       return next;
     });
+  };
+
+  const handleChallenge = async (p) => {
+    setChallengingId(p.id);
+    setChallengeLink('');
+    try {
+      const { code } = await createChallenge(p.phrase, p.hint, p.category, user.uid, displayName);
+      const url = `${window.location.origin}/c/${code}`;
+      setChallengeLink(url);
+      if (navigator.share) {
+        navigator.share({ title: 'Remindle Challenge', text: `Can you guess this? "${p.hint}"`, url }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(url);
+      }
+    } catch (e) {
+      console.error('Failed to create challenge:', e);
+    } finally {
+      setTimeout(() => { setChallengingId(null); setChallengeLink(''); }, 3000);
+    }
   };
 
   return (
@@ -102,6 +127,13 @@ export default function Collection() {
                 )}
               </div>
               <div style={styles.cardActions}>
+                <button
+                  onClick={() => handleChallenge(p)}
+                  style={{ ...styles.iconBtn, color: challengingId === p.id ? 'var(--primary)' : 'var(--on-surface-variant)' }}
+                  title="Challenge a Friend"
+                >
+                  {challengingId === p.id ? '✓' : '↗'}
+                </button>
                 <button
                   onClick={() => toggleReveal(p.id)}
                   style={styles.iconBtn}
