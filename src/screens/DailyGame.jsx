@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Grid from '../components/Grid';
 import Keyboard from '../components/Keyboard';
 import ProfileButton from '../components/ProfileButton';
+import { logEvent } from '../firebase';
 import AdBanner from '../components/AdBanner';
 import { useAuth } from '../contexts/AuthContext';
 import {
@@ -153,6 +154,7 @@ export default function DailyGame() {
 
     if (won || lost) {
       setGameOver(true);
+      logEvent('game_complete', { won, attempts: newGuesses.length, mode: isDeckMode ? 'deck' : 'personal', phrase_length: targetPhrase.length });
       const delay = targetPhrase.length * 150 + 800;
 
       if (isDeckMode) {

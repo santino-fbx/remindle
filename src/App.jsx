@@ -11,6 +11,8 @@ import DeckDetail from './screens/DeckDetail';
 import AddDeckPhrase from './screens/AddDeckPhrase';
 import ChallengePlay from './screens/ChallengePlay';
 import ChallengeResults from './screens/ChallengeResults';
+import Privacy from './screens/Privacy';
+import Terms from './screens/Terms';
 
 export default function App() {
   const location = useLocation();
@@ -27,6 +29,8 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/c/:code" element={<ChallengePlay />} />
           <Route path="/c/:code/results" element={<ChallengeResults />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
 
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>

@@ -210,6 +210,13 @@ VITE_FIREBASE_APP_ID=...`}
       >
         {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
       </button>
+
+      {/* Legal links */}
+      <div style={styles.legalLinks}>
+        <a href="/privacy" style={styles.legalLink}>Privacy Policy</a>
+        <span style={styles.legalDot}>·</span>
+        <a href="/terms" style={styles.legalLink}>Terms of Service</a>
+      </div>
     </div>
   );
 }
@@ -362,5 +369,21 @@ const styles = {
     marginTop: 20,
     textDecoration: 'underline',
     textUnderlineOffset: '3px',
+  },
+  legalLinks: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 24,
+  },
+  legalLink: {
+    fontFamily: 'var(--font-family)',
+    fontSize: '0.6875rem',
+    color: 'var(--on-surface-variant)',
+    textDecoration: 'none',
+  },
+  legalDot: {
+    color: 'var(--outline-variant)',
+    fontSize: '0.6875rem',
   },
 };
